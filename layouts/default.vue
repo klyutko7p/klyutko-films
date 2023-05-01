@@ -1,10 +1,8 @@
 <template>
   <ClientOnly>
-    <div class="flex justify-center">
-      <TheSidebar />
-      <div class="container mx-auto text-white px-20 py-10">
-        <slot></slot>
-      </div>
+    <TheNavbar />
+    <div class="container mx-auto text-white">
+      <slot></slot>
     </div>
   </ClientOnly>
 </template>

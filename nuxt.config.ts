@@ -3,4 +3,5 @@ export default defineNuxtConfig({
   modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt", "nuxt-icon"],
 
   css: ["@/assets/css/global.css"],
+  plugins: [{ src: "@/plugins/vue-awesome-swiper", mode: "client" }],
 });
