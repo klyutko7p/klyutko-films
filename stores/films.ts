@@ -9,6 +9,7 @@ export const useFilmsStore = defineStore("films", () => {
   let upcomingFilms = ref();
   let nowPlayingFilms = ref();
   let film = ref();
+  let recommendationsFilms = ref();
 
   async function fetchCompilationFilms() {
     let { data: popularData } = await useFetch(
@@ -33,7 +34,11 @@ export const useFilmsStore = defineStore("films", () => {
     let { data: filmData } = await useFetch(
       urlLink + id + API_KEY + "&language=en-US"
     );
+    let { data: recommendationsData } = await useFetch(
+      urlLink + id + "/recommendations" + API_KEY + "&language=en-US"
+    );
     film.value = filmData.value;
+    recommendationsFilms.value = recommendationsData.value;
   }
 
   const getPopularFilms = computed(() => popularFilms.value.results);
@@ -41,6 +46,9 @@ export const useFilmsStore = defineStore("films", () => {
   const getUpcomingFilms = computed(() => upcomingFilms.value.results);
   const getNowPlayingFilms = computed(() => nowPlayingFilms.value.results);
   const getFilmById = computed(() => film.value);
+  const getRecommendationsFilms = computed(
+    () => recommendationsFilms.value.results
+  );
 
   return {
     fetchCompilationFilms,
@@ -50,5 +58,6 @@ export const useFilmsStore = defineStore("films", () => {
     getNowPlayingFilms,
     getPopularFilms,
     getFilmById,
+    getRecommendationsFilms,
   };
 });

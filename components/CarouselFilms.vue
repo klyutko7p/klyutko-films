@@ -1,3 +1,20 @@
+<script lang="ts" setup>
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Pagination, Navigation, Autoplay } from 'swiper'
+import 'swiper/css'
+import 'swiper/css/pagination'
+import { useGenresStore } from '../stores/genres'
+
+const IMG_URL = "http://image.tmdb.org/t/p/original"
+let modules = [Autoplay, Pagination, Navigation]
+const storeGenres = useGenresStore()
+
+defineProps({
+    films: { type: Array as PropType<Film[]>, required: true },
+})
+</script>
+
+
 <template>
     <swiper class="swiper mb-10" :loop="true" :slides-per-view="1" :space-between="30" :modules="modules" :pagination="{
             clickable: true
@@ -27,7 +44,7 @@
                     <div class="flex items-center flex-wrap gap-5">
                         <div class="border-2 text-xl font-bold cursor-pointer hover:text-hover-color hover:bg-white duration-300 border-white py-3 px-7
                             rounded-3xl" v-for="genre_id in film.genre_ids">
-                            {{ getGenreName(genre_id) }}
+                            {{ storeGenres.getGenreName(genre_id) }}
                         </div>
                     </div>
                 </div>
@@ -37,33 +54,3 @@
 </template>
 
 
-<script lang="ts" setup>
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Pagination, Navigation, Autoplay } from 'swiper'
-import 'swiper/css'
-import 'swiper/css/pagination'
-
-const IMG_URL = "http://image.tmdb.org/t/p/original"
-let modules = [Autoplay, Pagination, Navigation]
-
-function getGenreName(genre_id: number) {
-    let genreName = ""
-    props.genres.forEach(element => {
-        if (genre_id === element.id) {
-            genreName = element.name
-        }
-    })
-    return genreName
-}
-
-const props = defineProps({
-    films: { type: Array as PropType<Film[]>, required: true },
-    genres: { type: Array as PropType<Genre[]>, required: true }
-})
-
-
-// :autoplay = "{
-// delay: 2500,
-//     disableOnInteraction: false
-//         }"
-</script>

@@ -103,11 +103,11 @@ onMounted(async () => {
         </div>
         <h1 class="text-center text-5xl font-bold mb-10">Browse our <span class="text-hover-color">collections</span>
         </h1>
-        <UICarouselFilms :films="popularFilms.splice(0, 10)" :genres="genres" />
-        <UICarousel :films="ratedFilms" :title="'Top rated films for all time'" icon="mdi:star-shooting" />
-        <UICarousel :films="upcomingFilms" :title="'The most anticipated films of the year'"
+        <CarouselFilms :films="popularFilms.slice(0, 10)" />
+        <Carousel :films="ratedFilms" :title="'Top rated films for all time'" icon="mdi:star-shooting" />
+        <Carousel :films="upcomingFilms" :title="'The most anticipated films of the year'"
             icon="ic:round-event-available" />
-        <UICarousel :films="nowPlayingFilms" :title="'Everyone is watching it now'" icon="ri:fire-fill" />
+        <Carousel :films="nowPlayingFilms" :title="'Everyone is watching it now'" icon="ri:fire-fill" />
     </div>
     <div v-else>
         <UISpinner />

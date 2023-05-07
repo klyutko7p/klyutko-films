@@ -1,4 +1,4 @@
-interface Collection {
+interface FilmCollection {
   id: number;
   name: string;
   poster_path: string;

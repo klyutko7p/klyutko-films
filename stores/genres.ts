@@ -11,7 +11,17 @@ export const useGenresStore = defineStore("genres", () => {
     genres.value = data.value;
   }
 
+  function getGenreName(genre_id: number) {
+    let genreName = "";
+    genres.value.genres.forEach((genre: Genre) => {
+      if (genre_id === genre.id) {
+        genreName = genre.name;
+      }
+    });
+    return genreName;
+  }
+
   const getGenres = computed(() => genres.value.genres);
 
-  return { fetchGenres, getGenres };
+  return { fetchGenres, getGenres, getGenreName };
 });

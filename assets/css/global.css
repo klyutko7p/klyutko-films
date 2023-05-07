@@ -1,5 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Volkhov:regular,italic,700,700italic);
 @import url(https://fonts.googleapis.com/css?family=Jura:300,regular,500,600,700);
+@import url(https://fonts.googleapis.com/css?family=Jost:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic);
 :root {
   --primary-color: #0d0d0d;
   --secondary-color: #080808;
@@ -13,11 +14,15 @@ body {
 }
 
 h1 {
-  font-family: "Jura";
+  font-family: "Jost", "Jura", sans-serif;
+}
+
+a {
+  font-family: "Jost", "Jura", sans-serif;
 }
 
 button {
-  font-family: "Jura";
+  font-family: "Jost", "Jura", sans-serif;
 }
 
 ::-webkit-scrollbar {
