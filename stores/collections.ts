@@ -14,6 +14,7 @@ export const useCollectionsStore = defineStore("collections", () => {
   }
 
   function getAVG(films: Array<Film>) {
+    films = films.filter((film) => film.vote_average > 0);
     return films
       .reduce((acc, val) => acc + val.vote_average / films.length, 0)
       .toFixed(1);

@@ -53,6 +53,10 @@ function goToCredits(id: number) {
     router.push(`/film/${id}/credits`)
 }
 
+function setFavoriteFilms(film: Film) {
+    storeFilms.setFavoriteFilms(film)
+}
+
 onMounted(async () => {
     await storeFilms.fetchFilmById(id)
     await storeCredits.fetchCreditsById(id)
@@ -76,10 +80,15 @@ onMounted(async () => {
         <img :src="IMG_URL + film.backdrop_path" alt="" class="fixed opacity-[0.1] z-[-10] w-full left-0 top-0">
         <div class="z-10 py-5 flex gap-16">
             <div class="flex flex-col gap-5">
-                <img :src="IMG_URL + film.poster_path" alt="" class="max-w-[300px] max-h-[450px]" v-if="film.poster_path">
-                <img :src="IMG_URL + film.poster_path" alt="" class="max-w-[300px] max-h-[450px]"
-                    v-else-if="film.backdrop_path && !film.poster_path">
-                <img src="@/assets/images/no-image.png" alt="" class="max-w-[300px] max-h-[450px]" v-else>
+                <div class="relative">
+                    <img :src="IMG_URL + film.poster_path" alt="" class="max-w-[300px] max-h-[450px]"
+                        v-if="film.poster_path">
+                    <img :src="IMG_URL + film.poster_path" alt="" class="max-w-[300px] max-h-[450px]"
+                        v-else-if="film.backdrop_path && !film.poster_path">
+                    <img src="@/assets/images/no-image.png" alt="" class="max-w-[300px] max-h-[450px]" v-else>
+                    <Icon @click="setFavoriteFilms(film)" name="material-symbols:bookmarks-rounded"
+                        class="absolute top-3 right-3 cursor-pointer" size="24px" />
+                </div>
                 <h1 class="text-2xl font-bold"><span class="p-2" :style="{ backgroundColor: colorAVG }">{{
                     voteCheck(film.vote_average)
                 }}</span> - {{ film.vote_count }}

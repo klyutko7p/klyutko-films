@@ -15,7 +15,7 @@
     cursor: pointer;
     display: inline-block;
     font-size: 20px;
-    font-weight: 800;
+    font-weight: 600;
     line-height: 16px;
     min-height: 40px;
     outline: 0;

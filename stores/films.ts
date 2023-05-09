@@ -1,4 +1,6 @@
 import { defineStore } from "pinia";
+import { useToast } from "vue-toastification";
+const toast = useToast();
 
 export const useFilmsStore = defineStore("films", () => {
   const urlLink = "https://api.themoviedb.org/3/movie/";
@@ -10,6 +12,7 @@ export const useFilmsStore = defineStore("films", () => {
   let nowPlayingFilms = ref();
   let film = ref();
   let recommendationsFilms = ref();
+  let favoritesFilms = ref<Array<Film>>([]);
 
   async function fetchCompilationFilms() {
     let { data: popularData } = await useFetch(
@@ -41,6 +44,24 @@ export const useFilmsStore = defineStore("films", () => {
     recommendationsFilms.value = recommendationsData.value;
   }
 
+  function setFavoriteFilms(film: Film) {
+    if (favoritesFilms.value.includes(film)) {
+      toast.error(`You already add ${film.title}`);
+    } else {
+      favoritesFilms.value.push(film);
+      toast.success(`You add ${film.title}`);
+    }
+  }
+
+  function removeFavoriteFilm(film: Film) {
+    favoritesFilms.value.forEach((filmObj, index) => {
+      if (filmObj.id === film.id) {
+        favoritesFilms.value.splice(index, 1);
+        toast.warning(`You remove ${film.title}`);
+      }
+    });
+  }
+
   const getPopularFilms = computed(() => popularFilms.value.results);
   const getRatedFilms = computed(() => ratedFilms.value.results);
   const getUpcomingFilms = computed(() => upcomingFilms.value.results);
@@ -49,15 +70,19 @@ export const useFilmsStore = defineStore("films", () => {
   const getRecommendationsFilms = computed(
     () => recommendationsFilms.value.results
   );
+  const getFavoritesFilms = computed(() => favoritesFilms.value);
 
   return {
     fetchCompilationFilms,
     fetchFilmById,
+    setFavoriteFilms,
+    removeFavoriteFilm,
     getRatedFilms,
     getUpcomingFilms,
     getNowPlayingFilms,
     getPopularFilms,
     getFilmById,
     getRecommendationsFilms,
+    getFavoritesFilms,
   };
 });
