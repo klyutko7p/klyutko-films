@@ -4,6 +4,7 @@ const toast = useToast();
 
 export const useFilmsStore = defineStore("films", () => {
   const urlLink = "https://api.themoviedb.org/3/movie/";
+  const urlLinkSearch = "https://api.themoviedb.org/3/search/movie";
   const API_KEY = "?api_key=a0620608f8e0ad4da9adb563a7f5a2d5";
 
   let popularFilms = ref();
@@ -12,7 +13,9 @@ export const useFilmsStore = defineStore("films", () => {
   let nowPlayingFilms = ref();
   let film = ref();
   let recommendationsFilms = ref();
+  let searchedFilms = ref();
   let favoritesFilms = ref<Array<Film>>([]);
+  let page = ref(1);
 
   async function fetchCompilationFilms() {
     let { data: popularData } = await useFetch(
@@ -53,6 +56,34 @@ export const useFilmsStore = defineStore("films", () => {
     }
   }
 
+  async function loadMoreSearchFilms(query: string) {
+    page.value += 1;
+    let { data: filmsData } = await useFetch(
+      urlLinkSearch +
+        API_KEY +
+        "&language=en-US" +
+        `&query=${query}` +
+        "&include_adult=false",
+      {
+        params: {
+          page: page.value,
+        },
+      }
+    );
+    searchedFilms.value = searchedFilms.value.concat(filmsData.value.results);
+  }
+
+  async function searchFilmsByQuery(query: string) {
+    let { data: filmsData } = await useFetch(
+      urlLinkSearch +
+        API_KEY +
+        "&language=en-US" +
+        `&query=${query}` +
+        "&include_adult=false"
+    );
+    searchedFilms.value = filmsData.value.results;
+  }
+
   function removeFavoriteFilm(film: Film) {
     favoritesFilms.value.forEach((filmObj, index) => {
       if (filmObj.id === film.id) {
@@ -71,12 +102,15 @@ export const useFilmsStore = defineStore("films", () => {
     () => recommendationsFilms.value.results
   );
   const getFavoritesFilms = computed(() => favoritesFilms.value);
+  const getSearchedFilms = computed(() => searchedFilms.value);
 
   return {
     fetchCompilationFilms,
     fetchFilmById,
     setFavoriteFilms,
     removeFavoriteFilm,
+    loadMoreSearchFilms,
+    searchFilmsByQuery,
     getRatedFilms,
     getUpcomingFilms,
     getNowPlayingFilms,
@@ -84,5 +118,6 @@ export const useFilmsStore = defineStore("films", () => {
     getFilmById,
     getRecommendationsFilms,
     getFavoritesFilms,
+    getSearchedFilms,
   };
 });

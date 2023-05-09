@@ -31,12 +31,12 @@ defineProps({
                 <Icon v-if="film.adult === false" name="uil:13-plus" size="40px" class="absolute bottom-0" />
                 <Icon v-if="film.adult === true" name="uil:18-plus" size="40px" class="absolute bottom-0" />
                 <div class="space-y-3">
-                    <h1 class="text-4xl font-bold"><span @click="$router.push(`/film/${film.id}`)"
-                            class="cursor-pointer hover:text-hover-color duration-200">{{
+                    <h1 class="text-4xl"><span @click="$router.push(`/film/${film.id}`)"
+                            class="cursor-pointer font-bold hover:text-hover-color duration-200">{{
                                 film.title
                             }}</span> ({{ new Date(film.release_date).toLocaleDateString("en-EN", { year: "numeric" }) }})
                     </h1>
-                    <h1 class="text-2xl font-bold text-gray-600">{{ film.original_title }}, <span class="uppercase">{{
+                    <h1 class="text-2xl text-gray-600">{{ film.original_title }}, <span class="uppercase">{{
                         film.original_language
                     }}</span>
                     </h1>

@@ -21,6 +21,10 @@ let favFilms = ref(storeFilms.getFavoritesFilms)
                     class="text-2xl flex items-center space-x-5 hover:bg-gray-color cursor-pointer p-3 rounded-lg duration-200">
                     <Icon name="ic:sharp-search" class="text-3xl" />
                 </NuxtLink>
+                <NuxtLink to="/filters" active-class="text-hover-color"
+                    class="text-2xl flex items-center space-x-5 hover:bg-gray-color cursor-pointer p-3 rounded-lg duration-200">
+                    <Icon name="ic:baseline-filter-alt" class="text-3xl" />
+                </NuxtLink>
                 <NuxtLink to="/bookmarks" active-class="text-hover-color"
                     class="text-2xl flex items-center space-x-5 hover:bg-gray-color cursor-pointer p-3 rounded-lg duration-200">
                     <div>
