@@ -14,14 +14,18 @@ defineProps({
 </script>
 
 <template>
-    <swiper :slidesPerView="7" :spaceBetween="10" class="mySwiper mb-10">
+    <swiper :slidesPerView="6.5" class="mySwiper mb-10">
         <swiper-slide v-for="author in getMainAuthors(authors)">
-            <div :style="{
+            <div @click="$router.push(`/person/${author.id}`)" :style="{
                     backgroundImage: `url('${author.profile_path ? IMG_URL + author.profile_path : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}')`
-                }" class="w-[110px] bg-cover bg-center h-[110px] border-2 border-white mx-auto rounded-[50%]">
+                }"
+                class="w-[110px] bg-cover bg-center h-[110px] border-2 border-white mx-auto rounded-[50%] cursor-pointer">
             </div>
             <div>
-                <h1 class="text-lg">{{ author.name }}</h1>
+                <h1 class="text-lg">
+                    <span @click="$router.push(`/person/${author.id}`)"
+                        class="cursor-pointer hover:text-hover-color duration-300 font-bold"> {{ author.name }}</span>
+                </h1>
                 <h1 class="text-base text-gray-500">{{ author.job ? author.job : "-" }}</h1>
             </div>
         </swiper-slide>

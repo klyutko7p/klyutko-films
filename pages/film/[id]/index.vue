@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { useFilmsStore } from '../../stores/films'
-import { useCreditsStore } from '../../stores/credits'
-import { useVideosStore } from '../../stores/videos'
-import { useReviewsStore } from '../../stores/reviews'
+import { useFilmsStore } from '@/stores/films'
+import { useCreditsStore } from '@/stores/credits'
+import { useVideosStore } from '@/stores/videos'
+import { useReviewsStore } from '@/stores/reviews'
 
 const route = useRoute()
+const router = useRouter()
 const storeFilms = useFilmsStore()
 const storeCredits = useCreditsStore()
 const storeVideos = useVideosStore()
@@ -48,6 +49,10 @@ function voteCheck(avg: number) {
     }
 }
 
+function goToCredits(id: number) {
+    router.push(`/film/${id}/credits`)
+}
+
 onMounted(async () => {
     await storeFilms.fetchFilmById(id)
     await storeCredits.fetchCreditsById(id)
@@ -75,7 +80,6 @@ onMounted(async () => {
                 <img :src="IMG_URL + film.poster_path" alt="" class="max-w-[300px] max-h-[450px]"
                     v-else-if="film.backdrop_path && !film.poster_path">
                 <img src="@/assets/images/no-image.png" alt="" class="max-w-[300px] max-h-[450px]" v-else>
-
                 <h1 class="text-2xl font-bold"><span class="p-2" :style="{ backgroundColor: colorAVG }">{{
                     voteCheck(film.vote_average)
                 }}</span> - {{ film.vote_count }}
@@ -89,7 +93,7 @@ onMounted(async () => {
         <FilmTrailer :videos="videos" class="mb-10" />
         <Carousel v-if="recommendationsFilms.length > 0" :films="recommendationsFilms" :title="'You may like'"
             icon="mdi:heart-plus" />
-        <FilmCredits :credits="credits" />
+        <FilmCredits :credits="credits" @goToCredits="goToCredits" />
         <FilmReviews :reviews="reviews" />
     </div>
     <div v-else>

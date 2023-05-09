@@ -45,15 +45,19 @@ onMounted(async () => {
             <div class="flex flex-col gap-10 mb-5">
                 <div v-for="film in collection.parts.sort((a, b) => new Date(a.release_date).getFullYear() - new Date(b.release_date).getFullYear())"
                     class="flex gap-10 bg-secondary-color rounded-2xl">
-                    <img :src="IMG_URL + film.poster_path" class="max-w-[200px] cursor-pointer"
-                        @click="$router.push(`/film/${film.id}`)" alt="">
+                    <img @click="$router.push(`/film/${film.id}`)" :src="IMG_URL + film.poster_path" alt=""
+                        class="max-w-[200px] cursor-pointer" v-if="film.poster_path">
+                    <img @click="$router.push(`/film/${film.id}`)" :src="IMG_URL + film.poster_path" alt=""
+                        class="max-w-[200px] cursor-pointer" v-else-if="film.backdrop_path && !film.poster_path">
+                    <img @click="$router.push(`/film/${film.id}`)" src="@/assets/images/no-image.png" alt=""
+                        class="max-w-[200px] cursor-pointer" v-else>
                     <div class="space-y-3 p-3">
                         <h1 class="text-2xl font-bold"> <span @click="$router.push(`/film/${film.id}`)"
                                 class="hover:text-hover-color duration-200 cursor-pointer">{{
-                                    film.title }}</span>, {{ new
+                                    film.title }}</span>, {{ film.release_date ? new
         Date(film.release_date).toLocaleDateString("en-EN", {
             year: "numeric",
-        }) }}</h1>
+        }) : "?" }}</h1>
                         <h1 class="text-xl">{{ film.overview }}</h1>
                         <div class="flex items-center flex-wrap gap-5">
                             <div class="border-2 text-xl font-bold cursor-pointer hover:text-hover-color hover:bg-white duration-300 border-white py-3 px-7

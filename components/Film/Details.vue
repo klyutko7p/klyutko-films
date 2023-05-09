@@ -79,7 +79,7 @@ function getGenres(genres: Array<Genre>) {
         </div>
         <div class="grid grid-cols-2">
             <h1>Runtime</h1>
-            <h1>{{ film.runtime ? `${film.runtime} min. / ${film.runtime > 60 ? (film.runtime / 60).toFixed(0) : "0"} h.
+            <h1>{{ film.runtime ? `${film.runtime} min. / ${film.runtime > 60 ? Math.floor(film.runtime / 60) : "0"} h.
                             ${film.runtime % 60} min.` :
                 "-" }}</h1>
         </div>

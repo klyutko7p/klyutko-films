@@ -28,7 +28,7 @@ onMounted(async () => {
 
 <template>
     <Head>
-        <Title>Home</Title>
+        <Title>Home - Movie App</Title>
     </Head>
     <div v-if="!isLoading" v-cloak class="max-md:p-3">
         <div class="space-y-3 mb-24">
