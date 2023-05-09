@@ -5,6 +5,7 @@ const toast = useToast();
 export const useFilmsStore = defineStore("films", () => {
   const urlLink = "https://api.themoviedb.org/3/movie/";
   const urlLinkSearch = "https://api.themoviedb.org/3/search/movie";
+  const urlLinkFilter = "https://api.themoviedb.org/3/discover/movie";
   const API_KEY = "?api_key=a0620608f8e0ad4da9adb563a7f5a2d5";
 
   let popularFilms = ref();
@@ -15,7 +16,9 @@ export const useFilmsStore = defineStore("films", () => {
   let recommendationsFilms = ref();
   let searchedFilms = ref();
   let favoritesFilms = ref<Array<Film>>([]);
-  let page = ref(1);
+  let filterFilms = ref<Array<Film>>([]);
+  let pageSearch = ref(1);
+  let pageFilter = ref(1);
 
   async function fetchCompilationFilms() {
     let { data: popularData } = await useFetch(
@@ -56,23 +59,6 @@ export const useFilmsStore = defineStore("films", () => {
     }
   }
 
-  async function loadMoreSearchFilms(query: string) {
-    page.value += 1;
-    let { data: filmsData } = await useFetch(
-      urlLinkSearch +
-        API_KEY +
-        "&language=en-US" +
-        `&query=${query}` +
-        "&include_adult=false",
-      {
-        params: {
-          page: page.value,
-        },
-      }
-    );
-    searchedFilms.value = searchedFilms.value.concat(filmsData.value.results);
-  }
-
   async function searchFilmsByQuery(query: string) {
     let { data: filmsData } = await useFetch(
       urlLinkSearch +
@@ -82,6 +68,63 @@ export const useFilmsStore = defineStore("films", () => {
         "&include_adult=false"
     );
     searchedFilms.value = filmsData.value.results;
+  }
+
+  async function loadMoreSearchFilms(query: string) {
+    pageSearch.value += 1;
+    let { data: filmsData } = await useFetch(
+      urlLinkSearch +
+        API_KEY +
+        "&language=en-US" +
+        `&query=${query}` +
+        "&include_adult=false",
+      {
+        params: {
+          page: pageSearch.value,
+        },
+      }
+    );
+    searchedFilms.value = searchedFilms.value.concat(filmsData.value.results);
+  }
+
+  async function searchFilmsByFilters(filterBody: Filter) {
+    let { data: filmsData } = await useFetch(
+      urlLinkFilter +
+        API_KEY +
+        "&language=en-US" +
+        `&primary_release_year=${filterBody.date}` +
+        `&sort_by=${filterBody.sort}` +
+        `&with_original_language=${filterBody.language}` +
+        `&vote_average.gte=${filterBody.userScore}` +
+        `&with_runtime.gte=${filterBody.runtime}` +
+        `&vote_count.gte=${filterBody.userVotes}` +
+        `&with_genres=${[...filterBody.genres_ids]}` +
+        "&with_watch_monetization_types=free"
+    );
+    filterFilms.value = filmsData.value.results;
+  }
+
+  async function loadMoreFilterFilms(filterBody: Filter) {
+    pageFilter.value += 1;
+    let { data: filmsData } = await useFetch(
+      urlLinkFilter +
+        API_KEY +
+        "&language=en-US" +
+        `&primary_release_year=${filterBody.date}` +
+        `&sort_by=${filterBody.sort}` +
+        `&with_original_language=${filterBody.language}` +
+        `&vote_average.gte=${filterBody.userScore}` +
+        `&with_runtime.gte=${filterBody.runtime}` +
+        `&vote_count.gte=${filterBody.userVotes}` +
+        `&with_genres=${[...filterBody.genres_ids]}` +
+        "&with_watch_monetization_types=free",
+      {
+        params: {
+          page: pageFilter.value,
+        },
+      }
+    );
+    filterFilms.value = filterFilms.value.concat(filmsData.value.results);
   }
 
   function removeFavoriteFilm(film: Film) {
@@ -103,6 +146,7 @@ export const useFilmsStore = defineStore("films", () => {
   );
   const getFavoritesFilms = computed(() => favoritesFilms.value);
   const getSearchedFilms = computed(() => searchedFilms.value);
+  const getFilterFilms = computed(() => filterFilms.value);
 
   return {
     fetchCompilationFilms,
@@ -111,6 +155,9 @@ export const useFilmsStore = defineStore("films", () => {
     removeFavoriteFilm,
     loadMoreSearchFilms,
     searchFilmsByQuery,
+    loadMoreFilterFilms,
+    searchFilmsByFilters,
+    getFilterFilms,
     getRatedFilms,
     getUpcomingFilms,
     getNowPlayingFilms,

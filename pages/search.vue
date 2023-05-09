@@ -3,7 +3,6 @@ import { useFilmsStore } from '../stores/films'
 const storeFilms = useFilmsStore()
 const observerMain = ref(null)
 
-const IMG_URL = "http://image.tmdb.org/t/p/original"
 let query = ref('Spider-Man')
 
 
@@ -65,23 +64,7 @@ onMounted(async () => {
             <Icon name="ic:baseline-menu" size="32px" class="text-hover-color" />
         </div>
         <div v-if="films.length > 0">
-            <div class="grid grid-cols-5 gap-10">
-                <div v-for="film in films" class="space-y-3" data-aos="fade-up">
-                    <img @click="$router.push(`/film/${film.id}`)" :src="IMG_URL + film.poster_path"
-                        class="max-w-[300px] w-full max-h-[400px] cursor-pointer h-screen" alt="" v-if="film.poster_path">
-                    <img :src="IMG_URL + film.backdrop_path" alt=""
-                        class="max-w-[300px] w-full max-h-[400px] cursor-pointer h-screen"
-                        @click="$router.push(`/film/${film.id}`)" v-else-if="film.backdrop_path && !film.poster_path">
-                    <img src="@/assets/images/no-image.png"
-                        class="max-w-[300px] w-full max-h-[400px] cursor-pointer h-screen"
-                        @click="$router.push(`/film/${film.id}`)" alt="" v-else>
-                    <h1 class="text-xl"><span @click="$router.push(`/film/${film.id}`)"
-                            class="font-bold duration-200 hover:text-hover-color cursor-pointer">{{ film.title
-                            }}</span>, {{
-    film.release_date ? new
-        Date(film.release_date).getFullYear() : "?" }}</h1>
-                </div>
-            </div>
+            <FilmList :films="films" />
         </div>
         <div v-else class="flex items-center justify-center flex-col space-y-5">
             <h1 class="text-center text-2xl font-bold">Sorry, we don't have this <span class="text-hover-color">Film</span>
