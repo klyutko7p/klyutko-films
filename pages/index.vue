@@ -94,7 +94,7 @@ onMounted(async () => {
                         size="32px" />
                 </div>
                 <div class="flex items-center justify-center flex-wrap gap-5">
-                    <div v-for="genre in genres"
+                    <div v-for="genre in genres" @click="$router.push(`/genre/${genre.id}`)"
                         class="bg-white text-black hover:text-white hover:bg-hover-color duration-200 cursor-pointer min-w-[200px] min-h-[200px] hover:scale-110 hover:shadow-2xl hover:shadow-black flex items-center justify-center p-3">
                         <h1 class="font-bold text-xl">{{ genre.name }}</h1>
                     </div>

@@ -53,10 +53,6 @@ function goToCredits(id: number) {
     router.push(`/film/${id}/credits`)
 }
 
-function setFavoriteFilms(film: Film) {
-    storeFilms.setFavoriteFilms(film)
-}
-
 onMounted(async () => {
     await storeFilms.fetchFilmById(id)
     await storeCredits.fetchCreditsById(id)
@@ -86,8 +82,6 @@ onMounted(async () => {
                     <img :src="IMG_URL + film.poster_path" alt="" class="max-w-[300px] max-h-[450px]"
                         v-else-if="film.backdrop_path && !film.poster_path">
                     <img src="@/assets/images/no-image.png" alt="" class="max-w-[300px] max-h-[450px]" v-else>
-                    <Icon @click="setFavoriteFilms(film)" name="material-symbols:bookmarks-rounded"
-                        class="absolute top-3 right-3 cursor-pointer" size="24px" />
                 </div>
                 <h1 class="text-2xl font-bold"><span class="p-2" :style="{ backgroundColor: colorAVG }">{{
                     voteCheck(film.vote_average)

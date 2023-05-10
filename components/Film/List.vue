@@ -7,6 +7,10 @@ defineProps({
 </script>
 
 <template>
+    <div class="flex items-center gap-3 mt-10 mb-5">
+        <h1 class="text-2xl font-bold">Results</h1>
+        <Icon name="ic:round-filter-list" size="32px" class="text-hover-color" />
+    </div>
     <div class="grid grid-cols-5 gap-10">
         <div v-for="film in films" class="space-y-3" data-aos="fade-up">
             <img @click="$router.push(`/film/${film.id}`)" :src="IMG_URL + film.poster_path"

@@ -47,7 +47,7 @@ onMounted(() => {
                     </div>
                     <div class="flex items-center flex-wrap gap-5">
                         <div class="border-2 text-base font-bold cursor-pointer hover:text-hover-color hover:bg-white duration-300 border-white py-3 px-7
-                            rounded-3xl" v-for="genre in film.genres">
+                            rounded-3xl" v-for="genre in film.genres" @click="$router.push(`/genre/${genre.id}`)">
                             {{ genre.name }}
                         </div>
                     </div>

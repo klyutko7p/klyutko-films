@@ -43,7 +43,8 @@ defineProps({
                     <h1 class="text-lg font-medium">{{ film.overview }}</h1>
                     <div class="flex items-center flex-wrap gap-5">
                         <div class="border-2 text-xl font-bold cursor-pointer hover:text-hover-color hover:bg-white duration-300 border-white py-3 px-7
-                            rounded-3xl" v-for="genre_id in film.genre_ids">
+                            rounded-3xl" v-for="genre_id in film.genre_ids"
+                            @click="$router.push(`/genre/${genre_id}`)">
                             {{ storeGenres.getGenreName(genre_id) }}
                         </div>
                     </div>

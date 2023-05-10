@@ -16,9 +16,11 @@ export const useFilmsStore = defineStore("films", () => {
   let recommendationsFilms = ref();
   let searchedFilms = ref();
   let favoritesFilms = ref<Array<Film>>([]);
+  let genresFilms = ref<Array<Film>>([]);
   let filterFilms = ref<Array<Film>>([]);
   let pageSearch = ref(1);
   let pageFilter = ref(1);
+  let pageGenre = ref(1);
 
   async function fetchCompilationFilms() {
     let { data: popularData } = await useFetch(
@@ -37,6 +39,36 @@ export const useFilmsStore = defineStore("films", () => {
     ratedFilms.value = ratedData.value;
     upcomingFilms.value = upcomingData.value;
     nowPlayingFilms.value = nowPlayingData.value;
+  }
+
+  async function fetchFilmsByGenre(id: number, sort: string) {
+    let { data: filmsData } = await useFetch(
+      urlLinkFilter +
+        API_KEY +
+        "&language=en-US" +
+        `&sort_by=${sort}` +
+        `&with_genres=${id}` +
+        "&with_watch_monetization_types=free"
+    );
+    genresFilms.value = filmsData.value.results;
+  }
+
+  async function loadMoreGenreFilms(id: number, sort: string) {
+    pageGenre.value += 1;
+    let { data: filmsData } = await useFetch(
+      urlLinkFilter +
+        API_KEY +
+        "&language=en-US" +
+        `&sort_by=${sort}` +
+        `&with_genres=${id}` +
+        "&with_watch_monetization_types=free",
+      {
+        params: {
+          page: pageGenre.value,
+        },
+      }
+    );
+    genresFilms.value = genresFilms.value.concat(filmsData.value.results);
   }
 
   async function fetchFilmById(id: number) {
@@ -147,17 +179,21 @@ export const useFilmsStore = defineStore("films", () => {
   const getFavoritesFilms = computed(() => favoritesFilms.value);
   const getSearchedFilms = computed(() => searchedFilms.value);
   const getFilterFilms = computed(() => filterFilms.value);
+  const getGenresFilms = computed(() => genresFilms.value);
 
   return {
     fetchCompilationFilms,
     fetchFilmById,
     setFavoriteFilms,
     removeFavoriteFilm,
+    fetchFilmsByGenre,
+    loadMoreGenreFilms,
     loadMoreSearchFilms,
     searchFilmsByQuery,
     loadMoreFilterFilms,
     searchFilmsByFilters,
     getFilterFilms,
+    getGenresFilms,
     getRatedFilms,
     getUpcomingFilms,
     getNowPlayingFilms,

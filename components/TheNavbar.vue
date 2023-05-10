@@ -29,7 +29,6 @@ let favFilms = ref(storeFilms.getFavoritesFilms)
                     class="text-2xl flex items-center space-x-5 hover:bg-gray-color cursor-pointer p-3 rounded-lg duration-200">
                     <div>
                         <Icon name="bi:bookmark-heart-fill" class="text-3xl relative" />
-                        <h1 v-if="favFilms.length > 0" class="absolute top-3 ml-[9px] text-lg">{{ favFilms.length }}</h1>
                     </div>
                 </NuxtLink>
             </div>

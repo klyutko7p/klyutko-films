@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import { useFilmsStore } from '../../stores/films'
+
+const storeFilms = useFilmsStore()
+
 const IMG_URL = "http://image.tmdb.org/t/p/original"
 
 defineProps({
@@ -28,6 +32,11 @@ function getGenres(genres: Array<Genre>) {
     }
     return array
 }
+
+
+function setFavoriteFilms(film: Film) {
+    storeFilms.setFavoriteFilms(film)
+}
 </script>
 
 <template>
@@ -37,7 +46,10 @@ function getGenres(genres: Array<Genre>) {
                 { year: "numeric" }) : "?" }}</h1>
         <h1 class="text-gray-600 text-xl">{{ film.original_title }} - <span class="text-white">{{
             film.status
-        }}</span> </h1>
+        }}</span>
+            <Icon @click="setFavoriteFilms(film)" name="material-symbols:bookmarks-rounded"
+                class="ml-5 text-white hover:text-hover-color duration-200 cursor-pointer" size="24px" />
+        </h1>
     </div>
     <h1 class="text-2xl">{{ film.overview }}</h1>
     <h1 class="text-4xl font-bold">Details:</h1>
@@ -59,7 +71,7 @@ function getGenres(genres: Array<Genre>) {
         <div class="grid grid-cols-2" v-if="film.genres.length > 0">
             <h1>Genres</h1>
             <div class="flex items-center gap-1">
-                <h1 v-for="genre in getGenres(film.genres)"
+                <h1 v-for="genre in getGenres(film.genres)" @click="$router.push(`/genre/${genre.id}`)"
                     class="hover:text-hover-color font-bold duration-300 cursor-pointer underline">
                     {{ genre ? genre.name : "-" }}
                 </h1>
