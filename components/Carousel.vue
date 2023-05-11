@@ -5,7 +5,7 @@
     </div>
     <swiper :slidesPerView="5.5" :spaceBetween="30" :pagination="{
             clickable: true,
-        }" class="mySwiper mb-10 bg-primary-color p-10">
+        }" :breakpoints="breakpoints" :modules="modules" class="mySwiper mb-10 p-10">
         <swiper-slide v-for="film in films">
             <div class="hover:scale-95 hover:shadow-2xl hover:shadow-hover-color duration-200 ">
                 <img :src="IMG_URL + film.poster_path" alt="" class="relative max-h-96 h-screen mx-auto cursor-pointer"
@@ -23,7 +23,36 @@
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 import 'swiper/css/pagination'
+import { Pagination } from 'swiper'
+let modules = [Pagination]
 const IMG_URL = "http://image.tmdb.org/t/p/w500"
+
+let breakpoints = {
+    240: {
+        slidesPerView: 1.2,
+        spaceBetween: 40
+    },
+    460: {
+        slidesPerView: 1.5,
+        spaceBetween: 40
+    },
+    610: {
+        slidesPerView: 2,
+        spaceBetween: 40
+    },
+    770: {
+        slidesPerView: 3,
+        spaceBetween: 40
+    },
+    1040: {
+        slidesPerView: 4,
+        spaceBetween: 40
+    },
+    1540: {
+        slidesPerView: 5.5,
+        spaceBetween: 40
+    }
+}
 
 defineProps({
     films: { type: Array as PropType<Film[]>, required: true },

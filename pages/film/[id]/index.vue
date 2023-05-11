@@ -73,19 +73,21 @@ onMounted(async () => {
         <Head>
             <Title>{{ film.title }} - Movie App</Title>
         </Head>
-        <img :src="IMG_URL + film.backdrop_path" alt="" class="fixed opacity-[0.1] z-[-10] w-full left-0 top-0">
-        <div class="z-10 py-5 flex gap-16">
+        <img :src="IMG_URL + film.backdrop_path" alt=""
+            class="fixed opacity-[0.1] max-lg:blur-lg h-screen max-lg:h-full z-[-10] w-full left-0 top-0">
+        <div class="z-10 py-5 flex max-md:block gap-16">
             <div class="flex flex-col gap-5">
-                <div class="relative">
+                <div class="relative max-md:mx-auto">
                     <img :src="IMG_URL + film.poster_path" alt="" class="max-w-[300px] max-h-[450px]"
                         v-if="film.poster_path">
                     <img :src="IMG_URL + film.poster_path" alt="" class="max-w-[300px] max-h-[450px]"
                         v-else-if="film.backdrop_path && !film.poster_path">
                     <img src="@/assets/images/no-image.png" alt="" class="max-w-[300px] max-h-[450px]" v-else>
                 </div>
-                <h1 class="text-2xl font-bold"><span class="p-2" :style="{ backgroundColor: colorAVG }">{{
-                    voteCheck(film.vote_average)
-                }}</span> - {{ film.vote_count }}
+                <h1 class="text-2xl font-bold mb-10 max-md:text-center"><span class="p-2"
+                        :style="{ backgroundColor: colorAVG }">{{
+                            voteCheck(film.vote_average)
+                        }}</span> - {{ film.vote_count }}
                     votes</h1>
             </div>
             <div class="space-y-3">

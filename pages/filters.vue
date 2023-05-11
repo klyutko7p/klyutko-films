@@ -29,7 +29,7 @@ let queryBody = ref({
 function selectedSelection() {
     const tags = document.querySelectorAll(".genre-button")
     tags.forEach((tag) => {
-        tag.classList.remove("bg-hover-color", "text-white")
+        tag.classList.remove("bg-[#f33f3f]", "text-white")
     })
 
     if (queryBody.value.genres_ids.length != 0) {
@@ -37,7 +37,7 @@ function selectedSelection() {
             const tag = document.getElementById(`${id}`)
             if (tag) {
                 console.log(tag)
-                tag.classList.add("bg-hover-color", "text-white")
+                tag.classList.add("bg-[#f33f3f]", "text-white")
             }
         })
     }
@@ -179,7 +179,7 @@ onMounted(async () => {
                     </div>
                 </div>
                 <div class="space-y-5">
-                    <div class="text-xl">
+                    <div class="text-xl mt-5">
                         <h1 class="text-2xl font-bold">User Score <span class="text-hover-color">{{ queryBody.userScore
                         }}</span></h1>
                         <div class="flex items-center gap-3">
@@ -213,6 +213,12 @@ onMounted(async () => {
 
         <div v-if="films.length > 0">
             <FilmList :films="films" />
+        </div>
+        <div v-else class="flex items-center justify-center flex-col space-y-5">
+            <h1 class="text-center text-2xl font-bold">Sorry, we don't have these <span
+                    class="text-hover-color">Films</span>
+                in our database with these <span class="text-hover-color">Filters</span></h1>
+            <Icon name="solar:mask-sad-linear" size="60px" />
         </div>
         <div ref="observerMain"></div>
     </div>

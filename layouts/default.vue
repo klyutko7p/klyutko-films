@@ -1,7 +1,7 @@
 <template>
   <ClientOnly>
     <TheNavbar />
-    <div class="container mx-auto text-white">
+    <div class="container mx-auto text-white max-md:px-5">
       <slot></slot>
     </div>
   </ClientOnly>

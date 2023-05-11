@@ -1,5 +1,6 @@
 <template>
-    <swiper :effect="'cards'" :grabCursor="true" :modules="modules" class="w-80 h-[420px]">
+    <swiper :effect="'cards'" :grabCursor="true" :modules="modules"
+        class="max-w-[320px] max-sm:max-w-[200px] max-sm:h-[300px] h-[420px]">
         <swiper-slide v-for="image in images.profiles" v-if="images.profiles.length > 0">
             <img :src="IMG_URL + image.file_path" loading="lazy" alt="">
         </swiper-slide>

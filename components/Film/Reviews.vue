@@ -19,7 +19,7 @@ function getURL(url: string) {
             <Icon name="material-symbols:rate-review-outline" size="32px" class="text-hover-color" />
         </div>
         <div v-for="review in reviews" class="mb-10 border-2 border-hover-color rounded-2xl p-10">
-            <div class="flex items-center justify-between border-b-2 border-hover-color">
+            <div class="flex items-center justify-between max-sm:block border-b-2 border-hover-color">
                 <div class="flex items-center gap-3">
                     <div :style="{
                             backgroundImage: `url('${review.author_details.avatar_path ? getURL(review.author_details.avatar_path) : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}')`

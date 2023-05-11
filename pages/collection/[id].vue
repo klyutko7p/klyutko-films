@@ -23,13 +23,15 @@ onMounted(async () => {
 <template>
     <div v-if="!isLoading">
         <img :src="IMG_URL + collection.backdrop_path" alt="" class="fixed opacity-[0.1] z-[-10] w-full left-0 top-0">
-        <div class="mt-10 gap-16 flex items-start">
-            <div>
-                <img :src="IMG_URL + collection.poster_path" alt="" class="max-w-[300px] max-h-[450px]"
-                    v-if="collection.poster_path">
-                <img :src="IMG_URL + collection.poster_path" alt="" class="max-w-[300px] max-h-[450px]"
+        <div class="mt-10 gap-16 flex items-start max-md:block">
+            <div class="">
+                <img :src="IMG_URL + collection.poster_path" alt=""
+                    class="max-md:mx-auto max-md:mb-10 max-w-[300px] max-h-[450px]" v-if="collection.poster_path">
+                <img :src="IMG_URL + collection.poster_path" alt=""
+                    class="max-md:mx-auto max-md:mb-10 max-w-[300px] max-h-[450px]"
                     v-else-if="collection.poster_path && !collection.backdrop_path">
-                <img src="@/assets/images/no-image.png" alt="" class="max-w-[300px] max-h-[450px]" v-else>
+                <img src="@/assets/images/no-image.png" alt=""
+                    class="max-md:mx-auto max-md:mb-10 max-w-[300px] max-h-[450px]" v-else>
             </div>
             <div>
                 <h1 class="text-3xl font-bold">{{ collection.name }}, {{
@@ -44,13 +46,14 @@ onMounted(async () => {
             </div>
             <div class="flex flex-col gap-10 mb-5">
                 <div v-for="film in collection.parts.sort((a, b) => new Date(a.release_date).getFullYear() - new Date(b.release_date).getFullYear())"
-                    class="flex gap-10 rounded-2xl p-10 shadow-2xl shadow-hover-color bg-secondary-color">
+                    class="flex max-lg:block max-lg:text-center gap-10 rounded-2xl p-10 shadow-2xl shadow-hover-color bg-secondary-color">
                     <img @click="$router.push(`/film/${film.id}`)" :src="IMG_URL + film.poster_path" alt=""
-                        class="max-w-[200px] cursor-pointer border-2" v-if="film.poster_path">
+                        class="max-w-[200px] max-lg:mx-auto cursor-pointer border-2" v-if="film.poster_path">
                     <img @click="$router.push(`/film/${film.id}`)" :src="IMG_URL + film.poster_path" alt=""
-                        class="max-w-[200px] cursor-pointer border-2" v-else-if="film.backdrop_path && !film.poster_path">
+                        class="max-w-[200px] max-lg:mx-auto cursor-pointer border-2"
+                        v-else-if="film.backdrop_path && !film.poster_path">
                     <img @click="$router.push(`/film/${film.id}`)" src="@/assets/images/no-image.png" alt=""
-                        class="max-w-[200px] cursor-pointer border-2" v-else>
+                        class="max-w-[200px] max-lg:mx-auto cursor-pointer border-2" v-else>
                     <div class="space-y-3 p-3">
                         <h1 class="text-2xl font-bold"> <span @click="$router.push(`/film/${film.id}`)"
                                 class="hover:text-hover-color duration-200 cursor-pointer">{{
@@ -61,7 +64,7 @@ onMounted(async () => {
                         <h1 class="text-xl">{{ film.overview }}</h1>
                         <div class="flex items-center flex-wrap gap-5">
                             <div class="border-2 text-xl font-bold cursor-pointer hover:text-hover-color hover:bg-white duration-300 border-white py-3 px-7
-                            rounded-3xl" v-for="genre_id in film.genre_ids">
+                            rounded-3xl max-md:hidden" v-for="genre_id in film.genre_ids">
                                 {{ storeGenres.getGenreName(genre_id) }}
                             </div>
                         </div>

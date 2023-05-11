@@ -34,10 +34,10 @@ onMounted(async () => {
         <div class="space-y-3 mb-24">
             <div class="h-[700px] mb-12">
                 <div class="space-y-5 flex items-center justify-center flex-col p-5 description">
-                    <h1 class="font-bold text-5xl text-center capitalize">Welcome to our <span
+                    <h1 class="font-bold text-5xl max-sm:text-3xl text-center capitalize">Welcome to our <span
                             class="text-hover-color">movie</span>
                         app!</h1>
-                    <h1 class="text-center text-3xl">With thousands of movies to choose from, our app is your
+                    <h1 class="text-center text-3xl max-sm:text-xl">With thousands of movies to choose from, our app is your
                         one-stop-shop
                         for
                         all

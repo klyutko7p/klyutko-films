@@ -33,7 +33,7 @@ onMounted(async () => {
         <div class="mt-10 flex gap-40">
             <div>
                 <h1 class="text-center text-4xl mb-10">Cast - {{ credits.cast.length }}</h1>
-                <div class="grid grid-cols-3 gap-5">
+                <div class="grid grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1  gap-5">
                     <div v-for="actor in credits.cast" class="flex flex-col text-center">
                         <div @click="$router.push(`/person/${actor.id}`)" :style="{
                                 backgroundImage: `url('${actor.profile_path ? IMG_URL + actor.profile_path : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}')`
@@ -53,7 +53,7 @@ onMounted(async () => {
             </div>
             <div>
                 <h1 class="text-center text-4xl mb-10">Crew - {{ credits.crew.length }}</h1>
-                <div class="grid grid-cols-3 gap-5">
+                <div class="grid grid-cols-3 max-lg:grid-cols-2  max-sm:grid-cols-1 gap-5">
                     <div v-for="author in credits.crew.sort((a, b) => b.popularity - a.popularity)"
                         class="flex flex-col text-center">
                         <div @click="$router.push(`/person/${author.id}`)" :style="{

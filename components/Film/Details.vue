@@ -62,17 +62,17 @@ function setFavoriteFilms(film: Film) {
         </div>
         <div class="grid grid-cols-2" v-if="film.production_countries.length > 0">
             <h1>Country</h1>
-            <div class="flex items-center gap-1">
-                <h1 v-for="country in getCountries(film.production_countries)">
+            <div class="space-x-1">
+                <h1 class="inline-block" v-for="country in getCountries(film.production_countries)">
                     {{ country ? country : "-" }}
                 </h1>
             </div>
         </div>
         <div class="grid grid-cols-2" v-if="film.genres.length > 0">
             <h1>Genres</h1>
-            <div class="flex items-center gap-1">
+            <div class="space-x-1">
                 <h1 v-for="genre in getGenres(film.genres)" @click="$router.push(`/genre/${genre.id}`)"
-                    class="hover:text-hover-color font-bold duration-300 cursor-pointer underline">
+                    class="inline-block hover:text-hover-color font-bold duration-300 cursor-pointer underline">
                     {{ genre ? genre.name : "-" }}
                 </h1>
             </div>

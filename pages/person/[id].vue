@@ -12,10 +12,6 @@ let social = ref({} as Social)
 
 let isLoading = ref(true)
 
-function getFilms() {
-
-}
-
 function setFilmsByFilter(filter: string) {
     if (person.value.known_for_department === "Acting") {
         if (filter === "Date") {
@@ -55,7 +51,7 @@ onMounted(async () => {
             <Title>{{ person.name }} - Movie App</Title>
         </Head>
         <img src="https://covermart.ru/assets/images/products/115676/in-laminate-4.jpg" loading="lazy" alt=""
-            class="fixed opacity-[0.1] z-[-10] h-screen w-full left-0 top-0">
+            class="fixed opacity-[0.1] z-[-10] h-full w-full left-0 top-0">
         <div class="space-y-3">
             <PersonDetails :person="person" :images="images" :social="social" />
             <div class="mt-10">

@@ -30,12 +30,15 @@ onMounted(() => {
         </div>
         <div class="space-y-10 mb-10">
             <div v-for="film in favoritesFilms"
-                class="flex items-center gap-16 rounded-2xl p-10 shadow-2xl shadow-hover-color bg-secondary-color">
-                <img :src="IMG_URL + film.poster_path" alt="" class="max-w-[250px] border-2 cursor-pointer"
+                class="flex items-center max-md:text-center max-md:block gap-16 rounded-2xl p-10 shadow-2xl shadow-hover-color bg-secondary-color">
+                <img :src="IMG_URL + film.poster_path" alt=""
+                    class="max-w-[250px] max-md:mb-10 max-md:mx-auto border-2 cursor-pointer"
                     @click="$router.push(`/film/${film.id}`)" v-if="film.poster_path">
-                <img :src="IMG_URL + film.backdrop_path" alt="" class="max-w-[250px] border-2 cursor-pointer"
+                <img :src="IMG_URL + film.backdrop_path" alt=""
+                    class="max-w-[250px] md:mb-10 md:mx-auto border-2 cursor-pointer"
                     @click="$router.push(`/film/${film.id}`)" v-else-if="film.backdrop_path && !film.poster_path">
-                <img src="@/assets/images/no-image.png" class="max-w-[250px] border-2 cursor-pointer"
+                <img src="@/assets/images/no-image.png"
+                    class="max-w-[250px] max-md:mb-10 max-md:mx-auto border-2 cursor-pointer"
                     @click="$router.push(`/film/${film.id}`)" alt="" v-else>
                 <div class="space-y-10">
                     <div class="space-y-3">
@@ -46,7 +49,7 @@ onMounted(() => {
                         <h1 class="text-xl">{{ film.overview }}</h1>
                     </div>
                     <div class="flex items-center flex-wrap gap-5">
-                        <div class="border-2 text-base font-bold cursor-pointer hover:text-hover-color hover:bg-white duration-300 border-white py-3 px-7
+                        <div class="border-2 text-base font-bold cursor-pointer hover:text-hover-color hover:bg-white duration-300 border-white py-3 max-md:mx-auto px-7
                             rounded-3xl" v-for="genre in film.genres" @click="$router.push(`/genre/${genre.id}`)">
                             {{ genre.name }}
                         </div>
