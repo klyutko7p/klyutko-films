@@ -59,10 +59,6 @@ onMounted(async () => {
                 </UIMainButton>
             </div>
         </div>
-        <div class="flex items-center gap-3">
-            <h1 class="font-bold text-2xl">Results</h1>
-            <Icon name="ic:baseline-menu" size="32px" class="text-hover-color" />
-        </div>
         <div v-if="films.length > 0">
             <FilmList :films="films" />
         </div>

@@ -41,7 +41,7 @@ function getURL(url: string) {
                         full review</a>
                 </div>
             </div>
-            <h1 class="whitespace-pre-line mt-5 text-lg">{{ review.content }}</h1>
+            <h1 class="whitespace-pre-line mt-5 text-lg overflow-auto">{{ review.content }}</h1>
         </div>
     </div>
 </template>

@@ -42,7 +42,7 @@ const INSTAGRAM_URL = "https://www.instagram.com/"
             <Icon class="text-hover-color" name="mdi:account-details" size="32px" />
         </div>
         <h1 class="text-xl italic">{{ person.biography }}</h1>
-        <div class="m-10 text-2xl text-center max-sm:block flex items-center justify-around">
+        <div class="m-10 text-2xl text-center max-sm:block max-sm:space-y-10 flex items-center justify-around">
             <div class="space-y-5 w-full" v-if="person.birthday">
                 <Icon name="iconoir:birthday-cake" size="56px" />
                 <div>

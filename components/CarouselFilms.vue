@@ -23,7 +23,8 @@ defineProps({
             disableOnInteraction: true,
         }">
         <swiper-slide class="slide cursor-grab max-lg:text-center" v-for="film in films">
-            <img :src="IMG_URL + film.backdrop_path" alt="backdrop_path" class="opacity-20 h-full min-h-[300px] relative">
+            <img :src="IMG_URL + film.backdrop_path" alt="backdrop_path"
+                class="opacity-20 w-full h-full min-h-[300px] relative">
             <div class="absolute bottom-10 left-10 max-lg:top-24 flex gap-5">
                 <img :src="IMG_URL + film.poster_path"
                     class="max-w-[250px] max-lg:hidden relative cursor-pointer animate-pulse hover:animate-none"
